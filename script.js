@@ -48,6 +48,7 @@ window.onload = function(){
     newGrid();
 };
 document.getElementById('new-grid-button').addEventListener('click', () => {
+    clearGrid();
     newGrid();
 })
 
@@ -111,48 +112,50 @@ function setCaretPosition(elem, caretPos){
     }
 
 
-function newGrid(){
-    // Step 1: fill the new grid with a valid sudoku set:
-        // Fill the grid 1-9 in each row
-        // Use backTracking: 
-            // fill the grid with a value --> try another value:
-
-    const gridcontainer = document.getElementById('sudoku-grid');
-
-    for(let row=0; row<9; row++){
-        for(let col=0; col<9; col++){
-            const cellId = `cell-${row}-${col}`;
-            const cell =document.getElementById(cellId);
-
-            const relatedValues = getRelativeCellValues(cell);
-            if(cell){
-                // update cell.value with a random value 1-9
-                    // if the random value is in row, cell or square already
-                        // do the random value again
-                    // otherwise move on to the next cell
-
-                    // Updated to 1-9: 0-1 exclusive is how math.random works
+    function newGrid() {
+        const gridContainer = document.getElementById('sudoku-grid');
+    
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                const cellId = `cell-${row}-${col}`;
+                const cell = document.getElementById(cellId);
                 let checks = false;
                 let attempts = 0;
-
-                while(!checks){
-                    const number = Math.floor(Math.random()*9) +1;
-                    if(!relatedValues.rowValues.includes(number) &&
-                    !relatedValues.colValues.includes(number) && 
-                    !relatedValues.squareValues.includes(number)){
+    
+                while (!checks && attempts < 100) {
+                    const relatedValues = getRelatedCellValues(cell); // Move inside the loop
+                    const number = Math.floor(Math.random() * 9) + 1;
+                    if (!relatedValues.rowValues.includes(number) &&
+                        !relatedValues.colValues.includes(number) &&
+                        !relatedValues.squareValues.includes(number)) {
                         checks = true;
                         cell.value = number;
                     }
-                    if(attempts >- 100){
-                        return newGrid();
-                    }
+                    attempts++;
+                }
+    
+                // If after 100 attempts no number fits, reset and start over
+                if (attempts >= 100) {
+                    // Clear the grid before retrying
+                    clearGrid();
+                    return newGrid();
                 }
             }
         }
     }
-}
-
-
+    
+    function clearGrid() {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                const cellId = `cell-${row}-${col}`;
+                const cell = document.getElementById(cellId);
+                if (cell) {
+                    cell.value = '';
+                }
+            }
+        }
+    }
+    
 function getRelativeCellValues(cell){
     const row = cell.getAttribute('data-row');
     const col = cell.getAttribute('data-col');
@@ -179,3 +182,4 @@ function getRelativeCellValues(cell){
     });
     return relatedValues;
 }
+

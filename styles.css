@@ -5,7 +5,7 @@ html,body{
 #application-wrapper{
     position: relative;
 
-    width: 900px;
+    width: 750px;
     height: 600px;
 
     border: 1px solid black;
@@ -22,11 +22,46 @@ html,body{
 
 #rules{
     position: relative;
-    width: 300px;
+    width: 170px;
     height: 600px;
-
-    border: 1px solid black;
-
-    left: 66.5%;
+    left: 77.3%;
 }
 
+.buttons{
+    background-color: inherit;
+    border: 1px solid black;
+    height: 50px;
+    width: 150px;
+    text-align: center;
+}
+
+.buttons:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#hint-button{
+    position: absolute;
+    align-content: center;
+    bottom: 8.45%;
+}
+#solve-button{
+    position: absolute;
+    align-content: center;
+    bottom: 74%;
+}
+#check-button{
+    position: absolute;
+    align-content: center;
+    bottom: 17.85%;
+}
+#auto-candidate-button{
+    position: absolute;
+    align-content: center;
+    bottom: 64.81%;
+}
+#new-grid-button{
+    position: absolute;
+    align-content:center;
+    bottom: 83.4%;
+}

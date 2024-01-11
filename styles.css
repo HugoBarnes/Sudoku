@@ -1,0 +1,32 @@
+html,body{
+    height: 100%;
+}
+
+#application-wrapper{
+    position: relative;
+
+    width: 900px;
+    height: 600px;
+
+    border: 1px solid black;
+
+    left: 15%;
+    top: 7.5%;
+}
+
+#sudoku-grid{
+    position: absolute;
+    left: 5%;
+    top: 8%;
+}
+
+#rules{
+    position: relative;
+    width: 300px;
+    height: 600px;
+
+    border: 1px solid black;
+
+    left: 66.5%;
+}
+

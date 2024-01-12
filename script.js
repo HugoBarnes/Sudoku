@@ -111,6 +111,46 @@ function setCaretPosition(elem, caretPos) {
     }
 }
 
+let timer = document.getElementById('timer');
+let hours =0, minutes=0, seconds=0;
+let interval = null;
+
+function updateTime(){
+    seconds++
+    if(seconds >= 60){
+        seconds=0;
+        minutes++;
+        if(minutes>=60){
+            minutes = 0;
+            hours++;
+        }
+    }
+    timer.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+
+function pad(value) {
+    return value.toString().padStart(2,'0');
+}
+
+const restartClock = document.getElementById('new-grid-button');
+
+restartClock.addEventListener('click', ()=> {
+    if(!interval){
+        setTimeout(() => {
+            interval = setInterval(updateTime, 1000);
+        }, 2000);
+    }
+});
+
+
+
+
+
+
+
+
+
+
 // Back tracking approach -- random loop takes too long at the later numbers.
 // the main idea is to try out a number, if it works move on, if it doesn't try a different number
 function newGrid() {
